@@ -26,6 +26,8 @@ Class MyStore {
         $this->con = null;
     }
 
+
+
     public function getUsers() {
         $connection = $this->openConnection();
         $stmt = $connection->prepare("SELECT * FROM members");
@@ -40,6 +42,8 @@ Class MyStore {
         }
     }
     
+
+
     public function login() {  //login function, use md5 for encryption
         if(isset($_POST['submit'])) {
             $password = md5($_POST['password']);
@@ -53,15 +57,17 @@ Class MyStore {
 
             if ($total > 0) {
                 echo "Welcome " .$user['first_name']." ".$user['last_name'] . "!";
-                $this->set_userData($user);
+                $this->set_userdata($user);
             } else {
                 echo "Login Failed";
             }
         }
     }
 
-    public function set_userData($array) {
-        if (isset($_SESSION)) { //check if session is set
+
+
+    public function set_userdata($array) {
+        if (!isset($_SESSION)) { //check if session is set
             session_start();
         }
 
@@ -72,9 +78,32 @@ Class MyStore {
         return $_SESSION['userdata'];
     }
 
-    public function get_userdata() {
 
+
+    public function get_userdata() {
+        if (!isset($_SESSION)) { //check if session is set
+            session_start();
+        }
+
+        if(isset($_SESSION['userdata'])) {
+            return $_SESSION['userdata'];
+        }else {
+            return null;
+        }
     }
+
+
+
+    public function logout() {
+
+        if (!isset($_SESSION)) { //check if session is set
+            session_start();
+        }
+        $_SESSION['userdata'] = null;
+        unset($_SESSION['userdata']);
+    }
+
+
 
     public function checkUserExist($email) { //if user exists. error persists
         
@@ -86,7 +115,10 @@ Class MyStore {
         return $total;
     }
 
+
+
     public function addNewUser() { //create account function
+        
         if (isset($_POST['add'])) {
 
             $email = $_POST['email'];
@@ -103,9 +135,10 @@ Class MyStore {
             } else {
                 echo "User alrady exists!";
             }
-    } 
+        } 
     }
 }
+
 $store = new MyStore();
 
 

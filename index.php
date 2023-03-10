@@ -3,8 +3,6 @@
 require_once('storeclass.php');
 $users = $store->getUsers();
 
-print_r($users)
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +12,7 @@ print_r($users)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nitz' Store | MyStore</title>
 </head>
-<body>
+<body>  
     
 </body>
 </html>

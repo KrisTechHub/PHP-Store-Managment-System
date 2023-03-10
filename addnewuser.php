@@ -1,7 +1,20 @@
 <?php
     require_once('storeclass.php');
     $store->addNewUser();
+    $userdetails = $store->get_userdata();
 
+    if (isset($userdetails)) {
+        
+        if($userdetails['access'] != "administrator") {
+
+            header("Location: login.php");
+
+        }
+
+    } else {
+
+        header("Location: login.php");
+    }
 
 ?>
 
