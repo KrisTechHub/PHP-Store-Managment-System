@@ -13,7 +13,7 @@ Class MyStore {
     private $options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC); //:: is resolution oeprator, first way of PHP to access (line .(dot) in js)
     protected $con;
 
-    public function openConnection() { 
+    public function openConnection() { //connect with database
         try { //try catch method
             $this->con = new PDO($this->server, $this->user, $this->password, $this->options);
             return $this->con;
@@ -22,7 +22,7 @@ Class MyStore {
         }
     }
 
-    public function closeconnection(){ //to optimize program, need to close connection.
+    public function closeconnection(){ //close connection with database.
         $this->con = null;
     }
 
@@ -40,14 +40,25 @@ Class MyStore {
         }
     }
     
-    public function login() { 
+    public function login() {  //login function, use md5 for encryption
         if(isset($_POST['submit'])) {
-            $password = $_POST['password'];
-            echo md5($password); //passwrod encryption
+            $password = md5($_POST['password']);
+            $username = $_POST['email'];
+            
+            $connection = $this->openConnection();
+            $stmt = $connection->prepare("SELECT * FROM members WHERE email = ? AND  password = ? ");
+            $stmt->execute([$username, $password]);
+            $total = $stmt -> rowCount();
+
+            if ($total > 0) {
+                echo "Login Success!";
+            } else {
+                echo "Login Failed";
+            }
         }
     }
 
-    public function addNewUser() {
+    public function addNewUser() { //create account function
         if (isset($_POST['add'])) {
 
             $email = $_POST['email'];

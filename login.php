@@ -19,23 +19,13 @@ $store->login();
         <div class="form-container">
             <form action="" method="post">
                 <div class="form-input">
-                    <label>Username</label>
-                    <input type="text" name="username" id="username">
+                    <label>Email</label>
+                    <input type="email" name="email" id="email" autocomplete="off">
                 </div>
 
                 <div class="form-input">
                     <label>Password</label>
                     <input type="password" name="password" id="password">
-                </div>
-
-                <div class="form-input">
-                    <label>Mobile Number</label>
-                    <input type="text" name="mobile" id="mobile">
-                </div>
-
-                <div class="form-input">
-                    <label>Address</label>
-                    <input type="text" name="address" id="address">
                 </div>
 
                 <button type="submit" name="submit">Submit</button>
