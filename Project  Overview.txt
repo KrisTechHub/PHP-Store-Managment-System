@@ -17,3 +17,11 @@ PLANNING
 -Creaate a local environment.
 -CCreate an initial timeline.
 -Discuss the timeline and qoutation price.
+
+
+PREREQUISITES
+
+-PHP basic to advance
+-SQL statements
+-HTML & CSS.
+-Javascript basic DOM manipulation and Events
