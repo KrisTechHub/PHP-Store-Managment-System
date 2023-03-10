@@ -1,0 +1,19 @@
+PROJECT OVERVIEW
+
+-PHP programming language
+-XAMPP (Apache, MySQL, Pearl, PHP)
+-PHP Procedural and OOP
+-PDO query connection
+-Admin section and User section
+-Front End and Back End
+-Javascript Async request (Optional)
+
+
+PLANNING
+
+-Talk to the client about the requirements.
+-Understand the target output.
+-Make a programmer assessment
+-Creaate a local environment.
+-CCreate an initial timeline.
+-Discuss the timeline and qoutation price.
