@@ -43,19 +43,47 @@ Class MyStore {
     public function login() {  //login function, use md5 for encryption
         if(isset($_POST['submit'])) {
             $password = md5($_POST['password']);
-            $username = $_POST['email'];
+            $email = $_POST['email'];
             
             $connection = $this->openConnection();
             $stmt = $connection->prepare("SELECT * FROM members WHERE email = ? AND  password = ? ");
-            $stmt->execute([$username, $password]);
+            $stmt->execute([$email, $password]);
+            $user = $stmt->fetch(); //access individual info of members in database
             $total = $stmt -> rowCount();
 
             if ($total > 0) {
-                echo "Login Success!";
+                echo "Welcome " .$user['first_name']." ".$user['last_name'] . "!";
+                $this->set_userData($user);
             } else {
                 echo "Login Failed";
             }
         }
+    }
+
+    public function set_userData($array) {
+        if (isset($_SESSION)) { //check if session is set
+            session_start();
+        }
+
+        $_SESSION['userdata'] = array(
+            "fullname" => $array['first_name']." ".$array['last_name'],
+            "access" => $array['access']
+        );
+        return $_SESSION['userdata'];
+    }
+
+    public function get_userdata() {
+
+    }
+
+    public function checkUserExist($email) { //if user exists. error persists
+        
+        $connection = $this->openConnection();
+        $stmt = $connection->prepare("SELECT * FROM members WHERE email = ? ");
+        $stmt->execute([$email]);
+        $total = $stmt -> rowCount();
+
+        return $total;
     }
 
     public function addNewUser() { //create account function
@@ -68,10 +96,14 @@ Class MyStore {
             $mobile = $_POST['mobile'];
             $address = $_POST['address'];
 
-            $connection = $this->openConnection();
-            $stmt = $connection->prepare("INSERT INTO members(`email`, `password`, `first_name`, `last_name`, `mobile`, `address`)VALUES(?,?,?,?,?,?) ");
-            $stmt->execute([$email, $password, $fname, $lname, $mobile, $address]);
-        }
+            if($this->checkUserExist($email) == 0){
+                $connection = $this->openConnection();
+                $stmt = $connection->prepare("INSERT INTO members(`email`, `password`, `first_name`, `last_name`, `mobile`, `address`)VALUES(?,?,?,?,?,?) ");
+                $stmt->execute([$email, $password, $fname, $lname, $mobile, $address]);
+            } else {
+                echo "User alrady exists!";
+            }
+    } 
     }
 }
 $store = new MyStore();
