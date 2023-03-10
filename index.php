@@ -1,8 +1,7 @@
 <?php
 
 require_once('storeclass.php');
-$myStore = new MyStore();
-$users = $myStore->getUsers();
+$users = $store->getUsers();
 
 print_r($users)
 

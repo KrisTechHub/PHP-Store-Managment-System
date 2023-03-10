@@ -39,7 +39,31 @@ Class MyStore {
             return 0;
         }
     }
+    
+    public function login() { 
+        if(isset($_POST['submit'])) {
+            $password = $_POST['password'];
+            echo md5($password); //passwrod encryption
+        }
+    }
 
-};
+    public function addNewUser() {
+        if (isset($_POST['add'])) {
+
+            $email = $_POST['email'];
+            $password = md5($_POST['password']);
+            $fname = $_POST['fname'];
+            $lname = $_POST['lname'];
+            $mobile = $_POST['mobile'];
+            $address = $_POST['address'];
+
+            $connection = $this->openConnection();
+            $stmt = $connection->prepare("INSERT INTO members(`email`, `password`, `first_name`, `last_name`, `mobile`, `address`)VALUES(?,?,?,?,?,?) ");
+            $stmt->execute([$email, $password, $fname, $lname, $mobile, $address]);
+        }
+    }
+}
+$store = new MyStore();
+
 
 ?>

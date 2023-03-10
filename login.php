@@ -1,3 +1,11 @@
+<?php
+
+require_once('storeclass.php');
+$store->login();
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,10 +22,23 @@
                     <label>Username</label>
                     <input type="text" name="username" id="username">
                 </div>
+
                 <div class="form-input">
                     <label>Password</label>
-                    <input type="text" name="password" id="password">
+                    <input type="password" name="password" id="password">
                 </div>
+
+                <div class="form-input">
+                    <label>Mobile Number</label>
+                    <input type="text" name="mobile" id="mobile">
+                </div>
+
+                <div class="form-input">
+                    <label>Address</label>
+                    <input type="text" name="address" id="address">
+                </div>
+
+                <button type="submit" name="submit">Submit</button>
             </form>
         </div>
     </div>
